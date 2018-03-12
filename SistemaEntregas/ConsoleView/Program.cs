@@ -77,35 +77,35 @@ namespace ConsoleView
         // Metodos Cliente
         private static Cliente CadastrarCliente()
         {
-            Cliente cli = new Cliente();
+            Cliente cliente = new Cliente();
 
             Console.Write("Digite o nome: ");
-            cli.Nome = Console.ReadLine();
+            cliente.Nome = Console.ReadLine();
 
             Console.WriteLine();
 
             Console.Write("Digite o cpf: ");
-            cli.Cpf = Console.ReadLine();
+            cliente.Cpf = Console.ReadLine();
 
             // ... Endereco
-            Endereco end = new Endereco();
+            Endereco endereco = new Endereco();
 
             Console.Write("Digite o nome da rua: ");
-            end.Rua = Console.ReadLine();
+            endereco.Rua = Console.ReadLine();
 
             Console.WriteLine();
 
             Console.Write("Digite o numero: ");
-            end.Numero = int.Parse(Console.ReadLine());
+            endereco.Numero = int.Parse(Console.ReadLine());
 
             Console.WriteLine();
 
             Console.Write("Digite o complemento: ");
-            end.Complemento = Console.ReadLine();
+            endereco.Complemento = Console.ReadLine();
 
-            cli._Endereco = end;
+            cliente._Endereco = endereco;
 
-            return cli;
+            return cliente;
         }
 
         private static Cliente PesquisarCliente()
@@ -118,15 +118,15 @@ namespace ConsoleView
         {
             Console.WriteLine();
             Console.WriteLine("--- DADOS CLIENTE --- ");
-            Console.WriteLine("ID:" + cliente.PessoaID);
-            Console.WriteLine("Nome: " + cliente.Nome);
-            Console.WriteLine("Cpf: " + cliente.Cpf);
+            Console.WriteLine("Id.....:" + cliente.PessoaID);
+            Console.WriteLine("Nome...: " + cliente.Nome);
+            Console.WriteLine("Cpf....: " + cliente.Cpf);
 
             Console.WriteLine("- Endereco -");
-            Console.WriteLine("Rua: " + cliente._Endereco.Rua);
-            Console.WriteLine("Num: " + cliente._Endereco.Numero);
-            Console.WriteLine("Compl.: " + cliente._Endereco.Complemento);
-            Console.WriteLine("-------------- ");
+            Console.WriteLine("Rua....: " + cliente._Endereco.Rua);
+            Console.WriteLine("Num....: " + cliente._Endereco.Numero);
+            Console.WriteLine("Compl..: " + cliente._Endereco.Complemento);
+            Console.WriteLine("--------------------- ");
             Console.WriteLine();
         }
     }
