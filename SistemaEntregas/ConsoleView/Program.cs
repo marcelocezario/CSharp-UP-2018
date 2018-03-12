@@ -128,7 +128,6 @@ namespace ConsoleView
             Console.WriteLine("Compl.: " + cliente._Endereco.Complemento);
             Console.WriteLine("-------------- ");
             Console.WriteLine();
-
         }
     }
 }
