@@ -108,10 +108,18 @@ namespace ConsoleView
             return cliente;
         }
 
-        private static Cliente PesquisarCliente()
+        private static void PesquisarCliente()
         {
-            // TODO : Fazer depois
-            return new Cliente();
+            Console.WriteLine("Digite o nome do cliente: ");
+            string nomeCliente = Console.ReadLine();
+
+            ClienteController cc = new ClienteController();
+            Cliente cliente = cc.PesquisarPorNome(nomeCliente);
+
+            if (cliente != null)
+                ExibirDadosCliente(cliente);
+            else
+                Console.WriteLine(" * Erro: Cliente não encontrado");
         }
 
         private static void ExibirDadosCliente(Cliente cliente)
