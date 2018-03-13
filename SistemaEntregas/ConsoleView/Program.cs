@@ -82,8 +82,6 @@ namespace ConsoleView
             Console.Write("Digite o nome: ");
             cliente.Nome = Console.ReadLine();
 
-            Console.WriteLine();
-
             Console.Write("Digite o cpf: ");
             cliente.Cpf = Console.ReadLine();
 
