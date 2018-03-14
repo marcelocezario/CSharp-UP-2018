@@ -16,6 +16,7 @@ namespace ConsoleView
             ListarClientes = 5,
             LimparTela = 6,
             Sair = 7
+            //testando github
         }
 
         private static OpcoesMenuPrincipal Menu()
