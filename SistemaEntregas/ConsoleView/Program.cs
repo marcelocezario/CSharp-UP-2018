@@ -121,12 +121,8 @@ namespace ConsoleView
             Console.Write("Digite o nome da rua: ");
             endereco.Rua = Console.ReadLine();
 
-            Console.WriteLine();
-
             Console.Write("Digite o numero: ");
             endereco.Numero = int.Parse(Console.ReadLine());
-
-            Console.WriteLine();
 
             Console.Write("Digite o complemento: ");
             endereco.Complemento = Console.ReadLine();
@@ -154,7 +150,7 @@ namespace ConsoleView
         {
             Console.WriteLine();
             Console.WriteLine("--- DADOS CLIENTE --- ");
-            Console.WriteLine("Id.....:" + cliente.PessoaID);
+            Console.WriteLine("Id.....: " + cliente.PessoaID);
             Console.WriteLine("Nome...: " + cliente.Nome);
             Console.WriteLine("Cpf....: " + cliente.Cpf);
 
@@ -163,7 +159,6 @@ namespace ConsoleView
             Console.WriteLine("Num....: " + cliente._Endereco.Numero);
             Console.WriteLine("Compl..: " + cliente._Endereco.Complemento);
             Console.WriteLine("--------------------- ");
-            Console.WriteLine();
         }
     }
 }
