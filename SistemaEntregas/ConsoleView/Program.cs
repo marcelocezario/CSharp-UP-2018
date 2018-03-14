@@ -69,6 +69,7 @@ namespace ConsoleView
                         ListarClientes();
                         break;
                     case OpcoesMenuPrincipal.LimparTela:
+                        LimparTela();
                         break;
                     case OpcoesMenuPrincipal.Sair:
                         break;
@@ -78,6 +79,11 @@ namespace ConsoleView
                
             } while (opcaoDigitada != OpcoesMenuPrincipal.Sair);
             
+        }
+
+        private static void LimparTela()
+        {
+            Console.Clear();
         }
 
         private static void ListarClientes()
