@@ -53,5 +53,10 @@ namespace Controllers
             if (cliente != null)
                 MeusClientes.Remove(cliente);
         }
+
+        public List<Cliente> ListarClientes()
+        {
+            return MeusClientes;
+        }
     }
 }

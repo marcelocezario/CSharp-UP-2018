@@ -13,8 +13,9 @@ namespace ConsoleView
             PesquisarCliente = 2,
             EditarCliente = 3,
             ExcluirCliente = 4,
-            LimparTela = 5,
-            Sair = 6
+            ListarClientes = 5,
+            LimparTela = 6,
+            Sair = 7
         }
 
         private static OpcoesMenuPrincipal Menu()
@@ -27,10 +28,11 @@ namespace ConsoleView
             Console.WriteLine("2 - Pesquisar Cliente");
             Console.WriteLine("3 - Editar Cliente");
             Console.WriteLine("4 - Excluir Cliente");
+            Console.WriteLine("5 - Listar Clientes");
 
             Console.WriteLine(" - Geral -");
-            Console.WriteLine("5 - Limpar Tela");
-            Console.WriteLine("6 - Sair");
+            Console.WriteLine("6 - Limpar Tela");
+            Console.WriteLine("7 - Sair");
 
             //return Convert.ToInt32(Console.ReadLine());
             string opcao = Console.ReadLine();
@@ -63,6 +65,9 @@ namespace ConsoleView
                     case OpcoesMenuPrincipal.ExcluirCliente:
                         ExcluirCliente();
                         break;
+                    case OpcoesMenuPrincipal.ListarClientes:
+                        ListarClientes();
+                        break;
                     case OpcoesMenuPrincipal.LimparTela:
                         break;
                     case OpcoesMenuPrincipal.Sair:
@@ -73,6 +78,15 @@ namespace ConsoleView
                
             } while (opcaoDigitada != OpcoesMenuPrincipal.Sair);
             
+        }
+
+        private static void ListarClientes()
+        {
+            ClienteController cc = new ClienteController();
+            foreach (var cliente in cc.ListarClientes())
+            {
+                ExibirDadosCliente(cliente);
+            }
         }
 
         private static void ExcluirCliente()
