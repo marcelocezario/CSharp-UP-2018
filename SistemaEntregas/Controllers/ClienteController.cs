@@ -9,6 +9,7 @@ namespace Controllers
         static List<Cliente> MeusClientes = new List<Cliente>();
         static int ultimoID = 0;
 
+        // método salvar cliente, recebe um objeto de cliente e gera um id e salva na memória
         public void SalvarCliente(Cliente cliente)
         {
             int id = ultimoID + 1;
@@ -18,6 +19,7 @@ namespace Controllers
             MeusClientes.Add(cliente);
         }
         
+        // método para pesquisar cliente por nome, retorna objeto cliente
         public Cliente PesquisarPorNome(string nome)
         {
             //buscar um objeto "x" na lista "MeusClientes" comparando o atributo nome com a string nome
@@ -35,6 +37,7 @@ namespace Controllers
                 return null;
         }
 
+        // método para pesquisar cliente por id, retorna objeto cliente
         public Cliente PesquisarPorId(int idCliente)
         {
             var c = from x in MeusClientes
@@ -47,6 +50,7 @@ namespace Controllers
                 return null;
         }
 
+        // método para excluir cliente pela id
         public void ExcluirCliente (int idCliente)
         {
             Cliente cliente = PesquisarPorId(idCliente);
@@ -54,6 +58,7 @@ namespace Controllers
                 MeusClientes.Remove(cliente);
         }
 
+        // método que retorna toda a lista de clientes cadastrados
         public List<Cliente> ListarClientes()
         {
             return MeusClientes;
