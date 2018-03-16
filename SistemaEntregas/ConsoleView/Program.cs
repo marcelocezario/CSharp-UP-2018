@@ -21,8 +21,10 @@ namespace ConsoleView
         // opções do menu principal switch
         private static OpcoesMenuPrincipal Menu()
         {
-            Console.WriteLine(" =======================================================  ");
+            LimparTela();
+            Console.WriteLine(" _______________________________________________________  ");
             Console.WriteLine("|----------------------- CLIENTES ----------------------| ");
+            Console.WriteLine("|                                                       | ");
             Console.WriteLine("|       1 - Cadastrar Novo                              | ");
             Console.WriteLine("|       2 - Pesquisar Cliente                           | ");
             Console.WriteLine("|       3 - Listar Clientes Cadastrados                 | ");
@@ -32,7 +34,7 @@ namespace ConsoleView
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|       9 - Limpar Tela                                 | ");
             Console.WriteLine("|      10 - Sair                                        | ");
-            Console.WriteLine(" =======================================================  ");
+            Console.WriteLine("|_______________________________________________________| ");
             Console.WriteLine("");
             Console.WriteLine("Escolha sua opcao e tecle enter: ");
             string opcao = Console.ReadLine();
@@ -49,6 +51,7 @@ namespace ConsoleView
             {
                 opcaoDigitada = Menu();
 
+                LimparTela();
                 switch (opcaoDigitada)
                 {
                     case OpcoesMenuPrincipal.CadastrarCliente:
@@ -77,7 +80,10 @@ namespace ConsoleView
                     default:
                         break;
                 }
-               
+
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+
             } while (opcaoDigitada != OpcoesMenuPrincipal.Sair);
         }
 
@@ -85,12 +91,17 @@ namespace ConsoleView
         // método para cadastro do cliente
         private static Cliente CadastrarCliente()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------ CADASTRAR CLIENTE ------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             Cliente cliente = new Cliente();
 
-            Console.Write("Digite o nome: ");
+            Console.Write("Digite o nome...........: ");
             cliente.Nome = Console.ReadLine();
 
-            Console.Write("Digite o cpf: ");
+            Console.Write("Digite o CPF............: ");
             cliente.Cpf = Console.ReadLine();
 
             cliente._Endereco = CadastrarEndereco();
@@ -98,6 +109,11 @@ namespace ConsoleView
             
             ClienteController cc = new ClienteController();
             cc.SalvarCliente(cliente);
+
+            Console.WriteLine("");
+            Console.WriteLine("Cadastro efetuado com sucesso!");
+            Console.WriteLine("");
+            ExibirDadosCliente(cliente);
 
             return cliente;
         }
@@ -107,13 +123,13 @@ namespace ConsoleView
         {
             Endereco endereco = new Endereco();
 
-            Console.Write("Digite o nome da rua: ");
+            Console.Write("Digite o nome da rua....: ");
             endereco.Rua = Console.ReadLine();
 
-            Console.Write("Digite o numero: ");
+            Console.Write("Digite o numero.........: ");
             endereco.Numero = int.Parse(Console.ReadLine());
 
-            Console.Write("Digite o complemento: ");
+            Console.Write("Digite o complemento....: ");
             endereco.Complemento = Console.ReadLine();
 
             EnderecoController ec = new EnderecoController();
@@ -125,6 +141,11 @@ namespace ConsoleView
         // método para pesquisa do cliente
         private static void PesquisarCliente()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------ PESQUISAR CLIENTE ------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             Console.WriteLine("Digite o nome do cliente: ");
             string nomeCliente = Console.ReadLine();
 
@@ -134,12 +155,11 @@ namespace ConsoleView
             if (cliente != null)
                 ExibirDadosCliente(cliente);
             else
+            {
                 Console.WriteLine(" *******************************************************");
                 Console.WriteLine(" * Erro: Cliente não encontrado!                       *");
                 Console.WriteLine(" *******************************************************");
-                Console.WriteLine("Pressione qualquer tecla para continuar...");
-                Console.ReadKey();
-                LimparTela();
+            }
         }
 
         // método para listar todos os clientes
@@ -147,16 +167,16 @@ namespace ConsoleView
         {
             ClienteController cc = new ClienteController();
 
-            LimparTela();
-            Console.WriteLine("  ---------------- CLIENTES CADASTRADOS ---------------");
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- LISTAR CLIENTES -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             if (cc.ListarClientes().Count == 0)
             {
                 Console.WriteLine(" *******************************************************");
                 Console.WriteLine(" * Erro: Não existem dados a serem listados!           *");
                 Console.WriteLine(" *******************************************************");
-                Console.WriteLine("Pressione qualquer tecla para continuar...");
-                Console.ReadKey();
-                LimparTela();
             }
             else
             {
@@ -172,16 +192,16 @@ namespace ConsoleView
         {
             EnderecoController ec = new EnderecoController();
 
-            LimparTela();
-            Console.WriteLine("  ---------------- ENDEREÇOS CADASTRADOS --------------");
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------ LISTAR ENDEREÇOS -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
             if (ec.ListarEnderecos().Count == 0)
             {
                 Console.WriteLine(" *******************************************************");
                 Console.WriteLine(" * Erro: Não existem dados a serem listados!           *");
                 Console.WriteLine(" *******************************************************");
-                Console.WriteLine("Pressione qualquer tecla para continuar...");
-                Console.ReadKey();
-                LimparTela();
             }
             else
             {
@@ -196,6 +216,12 @@ namespace ConsoleView
         // método para editar cliente já cadastrado
         private static void EditarCliente()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- EDITAR CLIENTE --------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+
             ClienteController cc = new ClienteController();
 
             Cliente cliente;
@@ -206,21 +232,52 @@ namespace ConsoleView
             ExibirDadosCliente(cliente);
 
 
-            Console.Write("Digite novo nome: ");
+            Console.Write("Digite novo nome........: ");
             cliente.Nome = Console.ReadLine();
 
-            Console.Write("Digite novo cpf: ");
+            Console.Write("Digite novo cpf.........: ");
             cliente.Cpf = Console.ReadLine();
 
             // ... Endereco
-            cliente._Endereco = CadastrarEndereco();
-            cliente.EnderecoID = cliente._Endereco.EnderecoID;
+            EnderecoController ec = new EnderecoController();
+
+            Endereco endereco;
+
+            endereco = ec.PesquisarPorId(cliente.EnderecoID);
+
+            cliente._Endereco = EditarEndereco(cliente.EnderecoID);
+
+        }
+
+        // método para editar endereço utilizando o número de Id como parametro. Retorna novo endereço
+        private static Endereco EditarEndereco(int EnderecoID)
+        {
+            EnderecoController ec = new EnderecoController();
+            Endereco endereco;
+            endereco = ec.PesquisarPorId(EnderecoID);
+
+            Console.Write("Digite o nome da rua....: ");
+            endereco.Rua = Console.ReadLine();
+
+            Console.Write("Digite o numero.........: ");
+            endereco.Numero = int.Parse(Console.ReadLine());
+
+            Console.Write("Digite o complemento....: ");
+            endereco.Complemento = Console.ReadLine();
+
+            return endereco;
 
         }
 
         // método para excluir um cliente cadastrado
         private static void ExcluirCliente()
         {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- EXCLUIR CLIENTE -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
+
+
             Console.WriteLine("Digite o id do cliente que deseja excluir: ");
             int idCliente = int.Parse(Console.ReadLine());
 
@@ -236,9 +293,9 @@ namespace ConsoleView
         {
             Console.WriteLine();
             Console.WriteLine("--- DADOS CLIENTE --- ");
-            Console.WriteLine("Id.....: " + cliente.PessoaID);
-            Console.WriteLine("Nome...: " + cliente.Nome);
-            Console.WriteLine("Cpf....: " + cliente.Cpf);
+            Console.WriteLine("Id...........: " + cliente.PessoaID);
+            Console.WriteLine("Nome.........: " + cliente.Nome);
+            Console.WriteLine("Cpf..........: " + cliente.Cpf);
 
             ExibirEndereco(cliente._Endereco);
         }
@@ -247,10 +304,10 @@ namespace ConsoleView
         private static void ExibirEndereco (Endereco endereco)
         {
             Console.WriteLine("- Endereco -");
-            Console.WriteLine("Id End.: " + endereco.EnderecoID);
-            Console.WriteLine("Rua....: " + endereco.Rua);
-            Console.WriteLine("Num....: " + endereco.Numero);
-            Console.WriteLine("Compl..: " + endereco.Complemento);
+            Console.WriteLine("Id endereço..: " + endereco.EnderecoID);
+            Console.WriteLine("Rua..........: " + endereco.Rua);
+            Console.WriteLine("Número.......: " + endereco.Numero);
+            Console.WriteLine("Complemento..: " + endereco.Complemento);
             Console.WriteLine("--------------------- ");
         }
 

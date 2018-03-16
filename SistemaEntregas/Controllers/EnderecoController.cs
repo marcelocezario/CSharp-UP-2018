@@ -1,5 +1,6 @@
 ﻿using Modelos;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Controllers
 {
@@ -18,6 +19,18 @@ namespace Controllers
             EnderecosCadastrados.Add(endereco);
 
             return id;
+        }
+
+        // método para pesquisar endereço por id, retorna objeto endereço ou nulo caso não encontre
+        public Endereco PesquisarPorId(int idEndereco)
+        {
+            var c = from x in EnderecosCadastrados
+                    where x.EnderecoID.Equals(idEndereco)
+                    select x;
+            if (c != null)
+                return c.FirstOrDefault();
+            else
+                return null;
         }
 
         // método que retorna toda a lista de endereços cadastrados
