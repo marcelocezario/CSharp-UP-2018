@@ -7,7 +7,6 @@ namespace ConsoleView
     class Program
     {
         enum OpcoesMenuPrincipal
-
         {
             CadastrarCliente = 1,
             PesquisarCliente = 2,
@@ -22,23 +21,20 @@ namespace ConsoleView
         // opções do menu principal switch
         private static OpcoesMenuPrincipal Menu()
         {
-            Console.WriteLine("Escolha sua opcao");
+            Console.WriteLine(" =======================================================  ");
+            Console.WriteLine("|----------------------- CLIENTES ----------------------| ");
+            Console.WriteLine("|       1 - Cadastrar Novo                              | ");
+            Console.WriteLine("|       2 - Pesquisar Cliente                           | ");
+            Console.WriteLine("|       3 - Listar Clientes Cadastrados                 | ");
+            Console.WriteLine("|       4 - Listar Endereços Cadastrados                | ");
+            Console.WriteLine("|       5 - Editar Cliente                              | ");
+            Console.WriteLine("|       6 - Excluir Cliente                             | ");
+            Console.WriteLine("|                                                       | ");
+            Console.WriteLine("|       9 - Limpar Tela                                 | ");
+            Console.WriteLine("|      10 - Sair                                        | ");
+            Console.WriteLine(" =======================================================  ");
             Console.WriteLine("");
-
-            Console.WriteLine(" ---- Clientes ---- ");
-            Console.WriteLine("1 - Cadastrar Novo");
-            Console.WriteLine("2 - Pesquisar Cliente");
-            Console.WriteLine("3 - Listar Clientes Cadastrados");
-            Console.WriteLine("4 - Listar Endereços Cadastrados");
-            Console.WriteLine("5 - Editar Cliente");
-            Console.WriteLine("6 - Excluir Cliente");
-
-
-            Console.WriteLine(" - Geral -");
-            Console.WriteLine("9 - Limpar Tela");
-            Console.WriteLine("10 - Sair");
-
-            //return Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Escolha sua opcao e tecle enter: ");
             string opcao = Console.ReadLine();
             return (OpcoesMenuPrincipal) int.Parse(opcao);
         }
@@ -46,7 +42,7 @@ namespace ConsoleView
         // método main - view
         static void Main(string[] args)
         {
-            OpcoesMenuPrincipal opcaoDigitada = 
+            OpcoesMenuPrincipal opcaoDigitada =
                 OpcoesMenuPrincipal.Sair;
 
             do
@@ -56,8 +52,7 @@ namespace ConsoleView
                 switch (opcaoDigitada)
                 {
                     case OpcoesMenuPrincipal.CadastrarCliente:
-                        Cliente c = CadastrarCliente();
-                        ExibirDadosCliente(c);
+                        CadastrarCliente();
                         break;
                     case OpcoesMenuPrincipal.PesquisarCliente:
                         PesquisarCliente();
@@ -84,7 +79,6 @@ namespace ConsoleView
                 }
                
             } while (opcaoDigitada != OpcoesMenuPrincipal.Sair);
-            
         }
 
 
@@ -108,7 +102,7 @@ namespace ConsoleView
             return cliente;
         }
         
-        // método para cadastra do endereço
+        // método para cadastro do endereço
         private static Endereco CadastrarEndereco()
         {
             Endereco endereco = new Endereco();
@@ -140,7 +134,12 @@ namespace ConsoleView
             if (cliente != null)
                 ExibirDadosCliente(cliente);
             else
-                Console.WriteLine(" * Erro: Cliente não encontrado");
+                Console.WriteLine(" *******************************************************");
+                Console.WriteLine(" * Erro: Cliente não encontrado!                       *");
+                Console.WriteLine(" *******************************************************");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                LimparTela();
         }
 
         // método para listar todos os clientes
@@ -149,11 +148,15 @@ namespace ConsoleView
             ClienteController cc = new ClienteController();
 
             LimparTela();
-            Console.WriteLine(" --- Clientes cadastrados ---");
+            Console.WriteLine("  ---------------- CLIENTES CADASTRADOS ---------------");
             if (cc.ListarClientes().Count == 0)
             {
-                Console.WriteLine(" * Não existem dados a serem listados");
-                Console.WriteLine("");
+                Console.WriteLine(" *******************************************************");
+                Console.WriteLine(" * Erro: Não existem dados a serem listados!           *");
+                Console.WriteLine(" *******************************************************");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                LimparTela();
             }
             else
             {
@@ -170,11 +173,15 @@ namespace ConsoleView
             EnderecoController ec = new EnderecoController();
 
             LimparTela();
-            Console.WriteLine(" --- Endereços cadastrador ---");
+            Console.WriteLine("  ---------------- ENDEREÇOS CADASTRADOS --------------");
             if (ec.ListarEnderecos().Count == 0)
             {
-                Console.WriteLine(" * Não existen dados a serem listados");
-                Console.WriteLine("");
+                Console.WriteLine(" *******************************************************");
+                Console.WriteLine(" * Erro: Não existem dados a serem listados!           *");
+                Console.WriteLine(" *******************************************************");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.ReadKey();
+                LimparTela();
             }
             else
             {
@@ -222,10 +229,7 @@ namespace ConsoleView
         }
 
         // método para limpar a tela do console
-        private static void LimparTela()
-        {
-            Console.Clear();
-        }
+        private static void LimparTela() => Console.Clear();
 
         // método para exibir todos os dados do cliente
         private static void ExibirDadosCliente(Cliente cliente)
