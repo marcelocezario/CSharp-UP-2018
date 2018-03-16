@@ -7,15 +7,13 @@ namespace Controllers
     public class ClienteController
     {
         static List<Cliente> MeusClientes = new List<Cliente>();
-        static int ultimoID = 0;
+        static int ultimoId = 0;
 
         // método salvar cliente, recebe um objeto de cliente e gera um id e salva na memória
         public void SalvarCliente(Cliente cliente)
         {
-            int id = ultimoID + 1;
-            ultimoID = id;
-
-            cliente.PessoaID = id;
+            ultimoId++;
+            cliente.PessoaID = ultimoId;
             MeusClientes.Add(cliente);
         }
         
