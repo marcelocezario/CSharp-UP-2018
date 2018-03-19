@@ -13,7 +13,8 @@ namespace ConsoleView
             ListarClientes = 3,
             ListarEnderecos = 4,
             EditarCliente = 5,
-            ExcluirCliente = 6,
+            EditarEndereco = 6,
+            ExcluirCliente = 7,
             LimparTela = 9,
             Sair = 10
         }
@@ -30,7 +31,8 @@ namespace ConsoleView
             Console.WriteLine("|       3 - Listar Clientes Cadastrados                 | ");
             Console.WriteLine("|       4 - Listar Endereços Cadastrados                | ");
             Console.WriteLine("|       5 - Editar Cliente                              | ");
-            Console.WriteLine("|       6 - Excluir Cliente                             | ");
+            Console.WriteLine("|       6 - Editar Endereco                             | ");
+            Console.WriteLine("|       7 - Excluir Cliente                             | ");
             Console.WriteLine("|                                                       | ");
             Console.WriteLine("|       9 - Limpar Tela                                 | ");
             Console.WriteLine("|      10 - Sair                                        | ");
@@ -69,6 +71,9 @@ namespace ConsoleView
                     case OpcoesMenuPrincipal.EditarCliente:
                         EditarCliente();
                         break;
+                    case OpcoesMenuPrincipal.EditarEndereco:
+                        EditarEndereco();
+                        break;
                     case OpcoesMenuPrincipal.ExcluirCliente:
                         ExcluirCliente();
                         break;
@@ -104,9 +109,8 @@ namespace ConsoleView
             Console.Write("Digite o CPF............: ");
             cliente.Cpf = Console.ReadLine();
 
-            cliente._Endereco = CadastrarEndereco();
-            cliente.EnderecoID = cliente._Endereco.EnderecoID;
-            
+            cliente.EnderecoID = CadastrarEndereco().EnderecoID;
+                        
             ClienteController cc = new ClienteController();
             cc.SalvarCliente(cliente);
 
@@ -241,16 +245,24 @@ namespace ConsoleView
             // ... Endereco
             EnderecoController ec = new EnderecoController();
 
-            Endereco endereco;
+            EditarEndereco(cliente.EnderecoID);
+        }
 
-            endereco = ec.PesquisarPorId(cliente.EnderecoID);
+        // método para editar cliente já cadastrado
+        private static void EditarEndereco()
+        {
+            Console.WriteLine(" _______________________________________________________ ");
+            Console.WriteLine("|------------------- EDITAR ENDERECO -------------------|");
+            Console.WriteLine("|_______________________________________________________|");
+            Console.WriteLine("");
 
-            cliente._Endereco = EditarEndereco(cliente.EnderecoID);
-
+            Console.WriteLine("Digite a Id do endereço que deseja alterar: ");
+            int idPesquisa = int.Parse(Console.ReadLine());
+            EditarEndereco(idPesquisa);
         }
 
         // método para editar endereço utilizando o número de Id como parametro. Retorna novo endereço
-        private static Endereco EditarEndereco(int EnderecoID)
+        private static void EditarEndereco(int EnderecoID)
         {
             EnderecoController ec = new EnderecoController();
             Endereco endereco;
@@ -264,9 +276,6 @@ namespace ConsoleView
 
             Console.Write("Digite o complemento....: ");
             endereco.Complemento = Console.ReadLine();
-
-            return endereco;
-
         }
 
         // método para excluir um cliente cadastrado
@@ -291,13 +300,15 @@ namespace ConsoleView
         // método para exibir todos os dados do cliente
         private static void ExibirDadosCliente(Cliente cliente)
         {
+            EnderecoController ec = new EnderecoController();
+
             Console.WriteLine();
             Console.WriteLine("--- DADOS CLIENTE --- ");
             Console.WriteLine("Id...........: " + cliente.PessoaID);
             Console.WriteLine("Nome.........: " + cliente.Nome);
             Console.WriteLine("Cpf..........: " + cliente.Cpf);
 
-            ExibirEndereco(cliente._Endereco);
+            ExibirEndereco(ec.PesquisarPorId(cliente.EnderecoID));
         }
 
         // método para exibir um endereço cadastrado
