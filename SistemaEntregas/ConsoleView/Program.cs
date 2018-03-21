@@ -40,7 +40,7 @@ namespace ConsoleView
             Console.WriteLine("");
             Console.WriteLine("Escolha sua opcao e tecle enter: ");
             string opcao = Console.ReadLine();
-            return (OpcoesMenuPrincipal) int.Parse(opcao);
+            return (OpcoesMenuPrincipal)int.Parse(opcao);
         }
 
         // método main - view
@@ -110,7 +110,7 @@ namespace ConsoleView
             cliente.Cpf = Console.ReadLine();
 
             cliente.EnderecoID = CadastrarEndereco().EnderecoID;
-                        
+
             ClienteController cc = new ClienteController();
             cc.SalvarCliente(cliente);
 
@@ -121,7 +121,7 @@ namespace ConsoleView
 
             return cliente;
         }
-        
+
         // método para cadastro do endereço
         private static Endereco CadastrarEndereco()
         {
@@ -138,7 +138,7 @@ namespace ConsoleView
 
             EnderecoController ec = new EnderecoController();
             ec.SalvarEndereco(endereco);
-            
+
             return endereco;
         }
 
@@ -233,22 +233,35 @@ namespace ConsoleView
             Console.WriteLine("Digite a Id do cadastro que deseja alterar: ");
             cliente = cc.PesquisarPorId(int.Parse(Console.ReadLine()));
 
-            ExibirDadosCliente(cliente);
 
+            if (cliente != null)
+            {
+                ExibirDadosCliente(cliente);
 
-            Console.Write("Digite novo nome........: ");
-            cliente.Nome = Console.ReadLine();
+                Cliente novoCliente = cliente;
 
-            Console.Write("Digite novo cpf.........: ");
-            cliente.Cpf = Console.ReadLine();
+                Console.Write("Digite novo nome........: ");
+                novoCliente.Nome = Console.ReadLine();
 
-            // ... Endereco
-            EnderecoController ec = new EnderecoController();
+                Console.Write("Digite novo cpf.........: ");
+                novoCliente.Cpf = Console.ReadLine();
 
-            EditarEndereco(cliente.EnderecoID);
+                cliente = novoCliente;
+
+                // ... Endereco
+                EnderecoController ec = new EnderecoController();
+
+                EditarEndereco(cliente.EnderecoID);
+            }
+            else
+            {
+                Console.WriteLine(" *******************************************************");
+                Console.WriteLine(" * Erro: Cliente não encontrado!                       *");
+                Console.WriteLine(" *******************************************************");
+            }
         }
 
-        // método para editar cliente já cadastrado
+        // método para editar endereço já cadastrado
         private static void EditarEndereco()
         {
             Console.WriteLine(" _______________________________________________________ ");
@@ -312,7 +325,7 @@ namespace ConsoleView
         }
 
         // método para exibir um endereço cadastrado
-        private static void ExibirEndereco (Endereco endereco)
+        private static void ExibirEndereco(Endereco endereco)
         {
             Console.WriteLine("- Endereco -");
             Console.WriteLine("Id endereço..: " + endereco.EnderecoID);
