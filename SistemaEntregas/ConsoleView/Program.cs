@@ -278,8 +278,7 @@ namespace ConsoleView
         private static void EditarEndereco(int EnderecoID)
         {
             EnderecoController ec = new EnderecoController();
-            Endereco endereco;
-            endereco = ec.PesquisarPorId(EnderecoID);
+            Endereco endereco = ec.PesquisarPorId(EnderecoID);
 
             Console.Write("Digite o nome da rua....: ");
             endereco.Rua = Console.ReadLine();
