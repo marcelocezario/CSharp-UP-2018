@@ -26,7 +26,14 @@ namespace WindowsFormsApp1
                 pictureBox1.ImageLocation = openFileDialog1.FileName;
 
                 pictureBox1.Load();
+
+                label1.Text = textBox1.Text;
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            label1.Text = textBox1.Text;
         }
     }
 }
