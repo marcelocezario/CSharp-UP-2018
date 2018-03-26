@@ -51,5 +51,13 @@ namespace Controllers
 
         // método que retorna toda a lista de clientes cadastrados
         public List<Cliente> ListarClientes() => ClientesCadastrados;
+
+        public void EditarCliente(int idClienteEditar, Cliente clienteEditado)
+        {
+            Cliente clienteEditar = PesquisarPorId(idClienteEditar);
+
+            clienteEditar.Nome = clienteEditado.Nome;
+            clienteEditar.Cpf = clienteEditado.Cpf;
+        }
     }
 }
