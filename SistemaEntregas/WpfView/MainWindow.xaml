@@ -12,10 +12,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Button" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Center" Width="" Grid.Column="0" Grid.Row="1"/>
-
+        <Button x:Name="btnCadastrarCliente" Content="Cadastrar Cliente" Grid.Column="1" HorizontalAlignment="Left" Margin="31.8,43.2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150" Click="btnCadastrarCliente_Click"/>
     </Grid>
 </Window>
